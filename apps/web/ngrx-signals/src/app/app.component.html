@@ -1,1 +1,5 @@
-<app-nx-welcome></app-nx-welcome> <router-outlet></router-outlet>
+@if(!hide) {
+<app-post></app-post>
+}
+<button (click)="hidePost()">hide</button>
+<router-outlet></router-outlet>
