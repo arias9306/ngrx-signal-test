@@ -1,0 +1,53 @@
+{
+  "name": "post-api",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/server/post-api/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/server/post-api",
+        "main": "apps/server/post-api/src/main.ts",
+        "tsConfig": "apps/server/post-api/tsconfig.app.json",
+        "assets": ["apps/server/post-api/src/assets"],
+        "webpackConfig": "apps/server/post-api/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "post-api:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "post-api:build:development"
+        },
+        "production": {
+          "buildTarget": "post-api:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/server/post-api/jest.config.ts"
+      }
+    }
+  },
+  "tags": ["type:api"]
+}
