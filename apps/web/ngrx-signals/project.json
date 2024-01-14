@@ -1,0 +1,90 @@
+{
+  "name": "ngrx-signals",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/web/ngrx-signals/src",
+  "tags": ["type:app"],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/web/ngrx-signals",
+        "index": "apps/web/ngrx-signals/src/index.html",
+        "browser": "apps/web/ngrx-signals/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/web/ngrx-signals/tsconfig.app.json",
+        "assets": [
+          "apps/web/ngrx-signals/src/favicon.ico",
+          "apps/web/ngrx-signals/src/assets"
+        ],
+        "styles": ["apps/web/ngrx-signals/src/styles.css"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "port": 4200
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "ngrx-signals:build:production"
+        },
+        "development": {
+          "buildTarget": "ngrx-signals:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "ngrx-signals:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/web/ngrx-signals/jest.config.ts"
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "ngrx-signals:build",
+        "port": 4200,
+        "staticFilePath": "dist/apps/web/ngrx-signals/browser"
+      }
+    }
+  }
+}
